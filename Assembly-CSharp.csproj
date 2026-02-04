@@ -64,6 +64,7 @@
     <Compile Include="Assets\scripts\HealthCollectibleMyGame.cs" />
     <Compile Include="Assets\UnityTechnologies\2DBeginnerAdventureGame\Scripts\Final\HealthCollectible.cs" />
     <Compile Include="Assets\scripts\EnemyController.cs" />
+    <Compile Include="Assets\scripts\ProjectileMyGame.cs" />
     <Compile Include="Assets\scripts\DamageZoneMyGame.cs" />
     <Compile Include="Assets\UnityTechnologies\2DBeginnerAdventureGame\Scripts\Final\DamageZone.cs" />
     <Compile Include="Assets\UnityTechnologies\2DBeginnerAdventureGame\Scripts\Final\RubyController.cs" />

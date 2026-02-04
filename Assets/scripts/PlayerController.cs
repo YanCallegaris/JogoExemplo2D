@@ -25,6 +25,10 @@ public class PlayerController : MonoBehaviour
 	Animator animator;
 	Vector2 moveDirection = new Vector2(1,0);
 
+	//Projectile
+	public GameObject projectilePrefab;
+	public float launchForce = 300;
+
 	void Start()
 	{
         animator = GetComponent<Animator>();
@@ -36,7 +40,7 @@ public class PlayerController : MonoBehaviour
 	void Update()
 	{
 		move = moveAction.ReadValue<Vector2>();
-		if(!Mathf.Approximately(move.x, 0.0f) || !Mathf.Approximately(move.y, 0.0f))
+		if (!Mathf.Approximately(move.x, 0.0f) || !Mathf.Approximately(move.y, 0.0f))
 		{
 			moveDirection.Set(move.x, move.y);
 			moveDirection.Normalize();
@@ -49,10 +53,15 @@ public class PlayerController : MonoBehaviour
 		if (isInvencible)
 		{
 			damageCooldown -= Time.deltaTime;
-			if(damageCooldown < 0)
+			if (damageCooldown < 0)
 			{
 				isInvencible = false;
 			}
+		}
+
+		if (Input.GetKeyDown(KeyCode.C))
+		{
+			Launch();
 		}
 	}
 
@@ -76,5 +85,13 @@ public class PlayerController : MonoBehaviour
 		animator.SetTrigger("Hit");
 		currentHealth = Mathf.Clamp(currentHealth + amount, 0, maxHealth);
 		UIHandlerMyGame.instance.SetHealthValue(currentHealth / (float)maxHealth);
+	}
+
+	void Launch()
+	{
+		GameObject projectileObject = Instantiate(projectilePrefab, rigidbody2D.position + Vector2.up * .5f, Quaternion.identity);
+		ProjectileMyGame projectile = projectileObject.GetComponent<ProjectileMyGame>();
+		projectile.Launch(moveDirection, launchForce);
+		animator.SetTrigger("Launch");
 	}
 }

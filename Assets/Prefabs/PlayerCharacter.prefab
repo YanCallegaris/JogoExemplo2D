@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 3560760801835092637}
   - component: {fileID: 28546964436564545}
   - component: {fileID: 8574756102666643923}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: PlayerCharacter
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -192,6 +192,9 @@ MonoBehaviour:
       m_Action: Move
       m_Flags: 8
     m_Flags: 0
+  projectilePrefab: {fileID: 677660041036428791, guid: a3aa793bceba7224bb5c3470e8bbe97b,
+    type: 3}
+  launchForce: 300
 --- !u!50 &3560760801835092637
 Rigidbody2D:
   serializedVersion: 4
