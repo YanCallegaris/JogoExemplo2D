@@ -15,6 +15,9 @@ public class EnemyController : MonoBehaviour
 	Rigidbody2D rigidbody2D;
 	bool swapAxisOnNextTurn = false;
 
+	//Life enemy
+	public bool broken = true;
+
 	//Animation Enemy
 	Animator animator;
 
@@ -45,8 +48,11 @@ public class EnemyController : MonoBehaviour
 	}
 	void FixedUpdate()
 	{
-
-		Vector2 position = rigidbody2D.position;
+        if (!broken)
+        {
+            return;
+        }
+        Vector2 position = rigidbody2D.position;
 		if (isVertical)
 		{
 			position.y = position.y + enemySpeed * direction * Time.fixedDeltaTime;
@@ -69,5 +75,17 @@ public class EnemyController : MonoBehaviour
 		{
 			player.ChangeHealth(-1);
 		}
+	}
+
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        Destroy(gameObject);
+    }
+
+    public void Fix()
+	{
+		broken = false;
+		rigidbody2D.simulated = false;
+		animator.SetTrigger("Fixed");
 	}
 }

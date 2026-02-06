@@ -15,12 +15,24 @@ public class ProjectileMyGame : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+        if(transform.position.magnitude > 100.00f)
+        {
+            Destroy(gameObject);
+        }
     }
 
     private void OnTriggerEnter2D(Collider2D other)
     {
-        Debug.Log("Projectile colission with " + other.gameObject);
+       EnemyController enemy = other.GetComponent<EnemyController>();
+        if (enemy != null) 
+        {
+            enemy.Fix();
+        }
+        Destroy(gameObject);
+    }
+
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
         Destroy(gameObject);
     }
 
