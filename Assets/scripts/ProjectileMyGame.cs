@@ -15,7 +15,7 @@ public class ProjectileMyGame : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(transform.position.magnitude > 100.00f)
+        if (transform.position.magnitude > 100.00f)
         {
             Destroy(gameObject);
         }
@@ -23,8 +23,9 @@ public class ProjectileMyGame : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D other)
     {
-       EnemyController enemy = other.GetComponent<EnemyController>();
-        if (enemy != null) 
+        if (other.gameObject.CompareTag("Confiner")) return;
+        EnemyController enemy = other.GetComponent<EnemyController>();
+        if (enemy != null)
         {
             enemy.Fix();
         }
@@ -33,7 +34,9 @@ public class ProjectileMyGame : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
+        if (collision.gameObject.CompareTag("Confiner")) return;
         Destroy(gameObject);
+
     }
 
     public void Launch(Vector2 direction, float force)

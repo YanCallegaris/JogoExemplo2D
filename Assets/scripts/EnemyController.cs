@@ -11,9 +11,11 @@ public class EnemyController : MonoBehaviour
 	//Move enemy
 	public bool isVertical;
 	public float enemySpeed;
-	int direction = 1;
+    public AudioClip[] audiosEnemy;
+    int direction = 1;
 	Rigidbody2D rigidbody2D;
 	bool swapAxisOnNextTurn = false;
+	AudioSource audioSource;
 
 	//Life enemy
 	public bool broken = true;
@@ -24,7 +26,8 @@ public class EnemyController : MonoBehaviour
 	// Start is called before the first frame update
 	void Start()
 	{
-		rigidbody2D = GetComponent<Rigidbody2D>();
+		audioSource = GetComponent<AudioSource>();
+        rigidbody2D = GetComponent<Rigidbody2D>();
 		animator = GetComponent<Animator>();
 		timer = changeTime;
 	}
@@ -87,5 +90,8 @@ public class EnemyController : MonoBehaviour
 		broken = false;
 		rigidbody2D.simulated = false;
 		animator.SetTrigger("Fixed");
-	}
+		audioSource.Stop();
+		audioSource.PlayOneShot(audiosEnemy[0]);
+        audioSource.PlayOneShot(audiosEnemy[1]);
+    }
 }

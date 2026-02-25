@@ -32,9 +32,16 @@ public class PlayerController : MonoBehaviour
 	//talk
 	public InputAction talkAction;
 
-	void Start()
+    //Audio
+    AudioSource audioSource;
+	public AudioClip[] audiosPlayer;
+
+    void Start()
 	{
-		moveAction.Enable();
+        //Audio
+        audioSource = GetComponent<AudioSource>();
+
+        moveAction.Enable();
 		talkAction.Enable();
         currentHealth = maxHealth;
         animator = GetComponent<Animator>();
@@ -48,7 +55,7 @@ public class PlayerController : MonoBehaviour
 		{
 			moveDirection.Set(move.x, move.y);
 			moveDirection.Normalize();
-		}
+        }
 
 		animator.SetFloat("Look X", moveDirection.x);
 		animator.SetFloat("Look Y", moveDirection.y);
@@ -91,6 +98,7 @@ public class PlayerController : MonoBehaviour
 			isInvencible = true;
 			damageCooldown = timeInvencible;
 			animator.SetTrigger("Hit");
+			PlaySound(audiosPlayer[0]);
 		}
 		currentHealth = Mathf.Clamp(currentHealth + amount, 0, maxHealth);
 		UIHandlerMyGame.instance.SetHealthValue(currentHealth / (float)maxHealth);
@@ -122,4 +130,9 @@ public class PlayerController : MonoBehaviour
 			}
 		}
 	}
+
+    public void PlaySound(AudioClip clip)
+    {
+        audioSource.PlayOneShot(clip);
+    }
 }
