@@ -16,6 +16,7 @@ public class EnemyController : MonoBehaviour
 	Rigidbody2D rigidbody2D;
 	bool swapAxisOnNextTurn = false;
 	AudioSource audioSource;
+	public ParticleSystem smokeEffect;
 
 	//Life enemy
 	public bool broken = true;
@@ -90,6 +91,7 @@ public class EnemyController : MonoBehaviour
 		broken = false;
 		rigidbody2D.simulated = false;
 		animator.SetTrigger("Fixed");
+		smokeEffect.Stop();
 		audioSource.Stop();
 		audioSource.PlayOneShot(audiosEnemy[0]);
         audioSource.PlayOneShot(audiosEnemy[1]);
